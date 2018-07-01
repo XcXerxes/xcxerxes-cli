@@ -40,7 +40,10 @@ function init({ demo, install, react }) {
     .pipe(vfs.dest(dest, {base: true}))
     .on('end', function () {
       // info('rename', 'gitignore -> .gitignore')
-      fs.writeFileSync(path.join(dest, 'package.json'), path.join(dest, '.gitignore'))
+      let json = fs.readFileSync(path.join(dest, 'package.json')).toString()
+      console.log(json)
+      json = json.replace('$$name', projectName)
+      fs.writeFileSync(path.join(dest, 'package.json'), json)
       if (install) {
         info('run', 'npm install')
         // require('./install')(printSuccess)
