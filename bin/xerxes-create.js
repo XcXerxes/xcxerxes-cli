@@ -8,10 +8,11 @@ const error = chalk.red
 
 program
   .usage('<projectName> [options]')
+  .option('--vue', 'Creates a new vuejs application')
+  .option('--react', 'Creates a new reactjs application')
   .on('--help', () => {
     console.log('  Commands:')
     console.log()
-    console.log('    create            Creates a new vue application')
     console.log()
     console.log('  All commands can be run with -h (or --help) for more information.')
   })

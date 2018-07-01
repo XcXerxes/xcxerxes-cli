@@ -17,18 +17,21 @@ function success(message) {
   console.error(chalk.green(message))
 }
 
-function init({ demo, install }) {
-  const type = demo ? 'demo' : 'app'
+function init({ demo, install, react }) {
+  let type = 'vue-cli'
+  if (react) {
+    type = 'react-cli'
+  }
   const cwd = path.join(__dirname, '../boilerplates', type)
   const dest = process.cwd()
   const projectName = path.basename(dest)
 
   if (!fs.emptyDir(dest)) {
     error('Existing files here, please run init command in an empty folder!');
-    process.exit(1);
+    process.exit(1)
   }
 
-  console.log(`Creating a new vue app in ${dest}`)
+  console.log(`Creating a new ${type.split('-')[0]} app in ${dest}`)
   console.log()
 
   // 将本地的模板转移到用户需要安装的目录下
@@ -37,7 +40,7 @@ function init({ demo, install }) {
     .pipe(vfs.dest(dest, {base: true}))
     .on('end', function () {
       // info('rename', 'gitignore -> .gitignore')
-      // fs.renameSync(path.join(dest, 'gitignore'), path.join(dest, '.gitignore'))
+      fs.writeFileSync(path.join(dest, 'package.json'), path.join(dest, '.gitignore'))
       if (install) {
         info('run', 'npm install')
         // require('./install')(printSuccess)
@@ -55,7 +58,7 @@ function printSuccess(projectName, dest) {
     We suggest that you begin by typing:
 
         ${chalk.yellow(`cd ${projectName}`)}
-        ${chalk.yellow(`yarn start or yarn dev`)}
+        ${chalk.yellow(`yarn start`)}
     
     Happy hacking!`);
 }

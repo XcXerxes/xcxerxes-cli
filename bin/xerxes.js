@@ -38,6 +38,7 @@ function printHelp() {
   console.log('  Commands:')
   console.log()
   console.log('    create           Init a new vuejs application in the current folder')
+  console.log('    list           Init a new reactjs application in the current folder')
   console.log()
   console.log('  All commands can be run with -h (or --help) for more information.')
 }
